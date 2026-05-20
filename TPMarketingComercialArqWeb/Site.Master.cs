@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BE;
+using BE.BITACORAYCAMBIOS;
+using BE.PERMISOS;
+using BLL;
+using BLL.BITACORAYCAMBIOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +14,83 @@ namespace TPMarketingComercialArqWeb
 {
     public partial class SiteMaster : MasterPage
     {
+        private readonly BLL_SESION bllSesion = new BLL_SESION();
+        BLL_BITACORA_EVENTOS bllbitacoraeventos = new BLL_BITACORA_EVENTOS();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack) {
+                ActualizarInfoSesion();
+            }
+        }
 
+        private void ActualizarInfoSesion()
+        {
+            // Valores por defecto: ocultar las cabeceras controladas por permisos
+            liUsuarios.Visible = false;
+            liBitacora.Visible = false;
+            liComprar.Visible = false;
+
+            var sesion = BE_SESION.ObtenerInstancia;
+            if (sesion != null && sesion.Logueado())
+            {
+                var u = sesion.Usuario;
+                var roles = u.ListaDePermisos.OfType<BE_ROL>().Select(r => r.Nombre).ToList();
+
+                // Determinar visibilidades según reglas
+                bool mostrarUsuarios = false;
+                bool mostrarBitacora = false;
+                bool mostrarComprar = false;
+
+                if (roles.Contains("Administrador"))
+                {
+                    mostrarUsuarios = mostrarBitacora = mostrarComprar = true;
+                }
+                else
+                {
+                    if (roles.Contains("Seguridad"))
+                    {
+                        mostrarBitacora = true;
+                    }
+                    if (roles.Contains("Cliente"))
+                    {
+                        mostrarComprar = true;
+                    }
+                    // Si tiene SinPermisos no mostramos nada (ya queda false)
+                    // Si se requieren otras combinaciones, agregar aquí.
+                }
+
+                liUsuarios.Visible = mostrarUsuarios;
+                liBitacora.Visible = mostrarBitacora;
+                liComprar.Visible = mostrarComprar;
+
+                // Footer y cabeceras login/logout
+                string rolTexto = roles.Any() ? string.Join(", ", roles) : "Sin rol";
+                lblSesion.Text = $"Sesión iniciada - {HttpUtility.HtmlEncode(u.Nombre)} - {HttpUtility.HtmlEncode(u.Apellido)} - {HttpUtility.HtmlEncode(u.Correo)} - {HttpUtility.HtmlEncode(rolTexto)}";
+
+                liLogin.Visible = false;
+                liLogout.Visible = true;
+            }
+            else
+            {
+                lblSesion.Text = "Sesión no iniciada";
+                liLogin.Visible = true;
+                liLogout.Visible = false;
+            }
+        }
+
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bllbitacoraeventos.GuardarBitacoraEvento(new BE_BITACORA_EVENTOS(BE_SESION.ObtenerInstancia.Usuario, DateTime.Now, $"Log Out"));
+                bllSesion.LogOut();
+            }
+            finally
+            {
+                ActualizarInfoSesion();
+                Response.Redirect("~/", true);
+            }
         }
     }
 }
