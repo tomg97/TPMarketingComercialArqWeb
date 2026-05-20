@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - TP DAS</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -39,7 +39,7 @@
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                <a class="navbar-brand" runat="server" href="~/">TP Arquitecturas Web</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -49,6 +49,27 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+
+                        <!-- Login: visible cuando NO hay sesión -->
+                        <li class="nav-item" id="liLogin" runat="server">
+                            <asp:HyperLink ID="lnkLogin" runat="server" CssClass="nav-link" NavigateUrl="~/Login">Log In</asp:HyperLink>
+                        </li>
+
+                        <!-- Logout: visible cuando hay sesión -->
+                        <li class="nav-item" id="liLogout" runat="server" Visible="false">
+                            <asp:LinkButton ID="lnkLogout" runat="server" CssClass="nav-link" OnClick="lnkLogout_Click">Log Out</asp:LinkButton>
+                        </li>
+
+                         <!-- Nav items controlados por permisos/roles -->
+                         <li class="nav-item" id="liUsuarios" runat="server">
+                             <a class="nav-link" runat="server" href="~/Usuarios">Usuarios</a>
+                         </li>
+                         <li class="nav-item" id="liBitacora" runat="server">
+                             <a class="nav-link" runat="server" href="~/Bitacora">Bitacora</a>
+                         </li>
+                         <li class="nav-item" id="liComprar" runat="server">
+                             <a class="nav-link" runat="server" href="~/Comprar">Comprar</a>
+                         </li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +79,10 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>
+                    &copy; <%: DateTime.Now.Year %> - TP de Arquitecturas Web - 
+                    <asp:Label ID="lblSesion" runat="server" CssClass="text-muted"></asp:Label>
+                </p>
             </footer>
         </div>
     </form>

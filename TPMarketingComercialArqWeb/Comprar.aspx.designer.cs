@@ -11,7 +11,7 @@ namespace TPMarketingComercialArqWeb
 {
 
 
-    public partial class _Default
+    public partial class Comprar
     {
     }
 }

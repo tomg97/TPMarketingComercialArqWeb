@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="BE/BE.csproj" Id="0bbcdecb-4ef0-4094-a0a3-7f22468248ea" />
+  <Project Path="BLL/BLL.csproj" Id="b3bb05ec-b540-4dd3-a45a-438a65cbd534" />
+  <Project Path="DAL/DAL.csproj" Id="fe2220ea-b0fa-48fb-9ffb-94c659f1233f" />
   <Project Path="TPMarketingComercialArqWeb/TPMarketingComercialArqWeb.csproj" Id="6eb9c0b9-fb7c-4fab-943b-9e1a58e42ec2" />
 </Solution>
