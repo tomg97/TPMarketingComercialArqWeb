@@ -149,6 +149,10 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Tutoriales\Como correr el proyecto.md" />
+    <Content Include="Tutoriales\Template.md" />
+    <Content Include="Tutoriales\Como clonar desde github.md" />
+    <Content Include="Tutoriales\Buenas practicas colaborativo.md" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
