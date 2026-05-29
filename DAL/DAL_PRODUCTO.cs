@@ -32,6 +32,24 @@ namespace DAL
 
         }
 
+        public int DescontarStock(int id, int cantidad)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            SqlParameter p = acceso.CrearParametro("@id", id);
+            parametros.Add(p);
+            p = acceso.CrearParametro("@cantidad", cantidad);
+            parametros.Add(p);
+
+            int res = acceso.Escribir("PRODUCTO_EDITAR_STOCK", parametros);
+            /*
+            UPDATE PRODUCTO SET 
+                stock = stock - @cantidad, 
+            WHERE id = @id
+            */
+
+            return res;
+        }
+
         internal BE_PRODUCTO Convertir(DataRow registro)
         {
             switch (registro["tipoproducto"].ToString())

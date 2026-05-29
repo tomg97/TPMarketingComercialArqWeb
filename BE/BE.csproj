@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BE_INSUMO.cs" />
+    <Compile Include="BE_ITEMCARRITO.cs" />
     <Compile Include="BE_MATERIAL_ENUM.cs" />
     <Compile Include="BE_PIEZAIMPRESA.cs" />
     <Compile Include="BE_USUARIO.cs" />
