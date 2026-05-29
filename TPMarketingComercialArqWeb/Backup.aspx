@@ -2,13 +2,28 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <style>
+        .backup-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+        color: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        margin-bottom: 28px;
+
+        }
+        .backup-header h1 { margin: 0 0 6px 0; font-size: 2rem; letter-spacing: 1px; }
+        .backup-header p  { margin: 0; color: #a0c4ff; }
+    </style>
+
 <main>
+
+    <div class="backup-header">
+        <h1 id="aspnetTitle">🖨️ Backup & Restore</h1>
+        <p>Guardar un backup y restaurar la base de datos.</p>
+    </div>
+
     <div>
         <div>
-
-            <div class="backup-logo">🖨️</div>
-            <h2>3D Shop</h2>
-            <p class="">Realizar backup de la base o restauración.</p>
 
             <asp:Button ID="btnBackup" runat="server" CssClass="btn btn-sm btn-primary me-1" 
                 Text="Backup" OnClick="btnBackup_Click"/>

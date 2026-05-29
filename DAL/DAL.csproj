@@ -46,6 +46,7 @@
     <Compile Include="DAL_MAPPER.cs" />
     <Compile Include="BITACORAYCAMBIOS\DAL_MAPPER_BITACORA_EVENTOS.cs" />
     <Compile Include="DAL_MAPPER_USUARIO.cs" />
+    <Compile Include="DAL_PRODUCTO.cs" />
     <Compile Include="ENCRIPTADOR\DAL_ENCRIPTADOR.cs" />
     <Compile Include="MULTIIDIOMA\DAL_MAPPER_IDIOMA.cs" />
     <Compile Include="PERMISOS\DAL_PERMISO.cs" />

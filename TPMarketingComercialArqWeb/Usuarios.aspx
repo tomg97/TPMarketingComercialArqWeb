@@ -1,11 +1,26 @@
 ﻿<%@ Page Title="Usuarios" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Usuarios.aspx.cs" Inherits="TPMarketingComercialArqWeb.Usuarios" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+        .user-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+        color: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        margin-bottom: 28px;
+
+        }
+        .user-header h1 { margin: 0 0 6px 0; font-size: 2rem; letter-spacing: 1px; }
+        .user-header p  { margin: 0; color: #a0c4ff; }
+    </style>
+
     <main>
-        <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle">Usuarios</h1>
-            <p class="lead">ABM de usuarios.</p>
-        </section>
+        <section class="row" aria-labelledby="aspnetTitle"></section>
+        
+        <div class="user-header">
+            <h1 id="aspnetTitle">👤 Usuarios</h1>
+            <p>Alta, baja y modificación de usuarios.</p>
+        </div>
 
         <div class="row mb-3">
             <div class="col-md-12">

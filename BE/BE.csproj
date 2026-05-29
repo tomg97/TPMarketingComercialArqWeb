@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BE_INSUMO.cs" />
+    <Compile Include="BE_MATERIAL_ENUM.cs" />
+    <Compile Include="BE_PIEZAIMPRESA.cs" />
     <Compile Include="BE_USUARIO.cs" />
     <Compile Include="BITACORAYCAMBIOS\BE_BITACORA_CAMBIOS.cs" />
     <Compile Include="BITACORAYCAMBIOS\BE_BITACORA_EVENTOS.cs" />
@@ -49,6 +52,7 @@
     <Compile Include="PERMISOS\BE_PERMISO.cs" />
     <Compile Include="PERMISOS\BE_PERMISO_TIPO_ENUM.cs" />
     <Compile Include="PERMISOS\BE_ROL.cs" />
+    <Compile Include="BE_PRODUCTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SESION\BE_LOGIN_EXCEPTION.cs" />
     <Compile Include="SESION\BE_LOGIN_RESULTADO_ENUM.cs" />

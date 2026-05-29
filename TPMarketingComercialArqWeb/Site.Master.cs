@@ -70,7 +70,7 @@ namespace TPMarketingComercialArqWeb
 
                 // Footer y cabeceras login/logout
                 string rolTexto = roles.Any() ? string.Join(", ", roles) : "Sin rol";
-                lblSesion.Text = $"Sesión iniciada - {HttpUtility.HtmlEncode(u.Nombre)} - {HttpUtility.HtmlEncode(u.Apellido)} - {HttpUtility.HtmlEncode(u.Correo)} - {HttpUtility.HtmlEncode(rolTexto)}";
+                lblSesion.Text = $"Sesión iniciada - {HttpUtility.HtmlEncode(u.Nombre)} {HttpUtility.HtmlEncode(u.Apellido)} - {HttpUtility.HtmlEncode(u.Correo)} - {HttpUtility.HtmlEncode(rolTexto)}";
 
                 liLogin.Visible = false;
                 liLogout.Visible = true;
