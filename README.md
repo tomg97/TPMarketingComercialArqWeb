@@ -25,7 +25,7 @@ Al menos en 2 tablas
 
 - Loguear como Admin -> hacer un backup -> salir del sistema -> romper 2 tablas (por lo menos en 2 tablas tiene que haber dígito verificador) -> loguear como admin -> cartel "error de integridad y que tabla/s y registro/s están corruptos".
 
-#### Correjir
+#### Corregir
 
 - Cosas de las contraseña
   - Contraseña 8 caracteres letras may y min y caracter especial
