@@ -2,11 +2,13 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - 3D Shop</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖨️</text></svg>" />
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -20,8 +22,6 @@
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
@@ -33,32 +33,58 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Application name</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                <a class="navbar-brand" runat="server" href="~/">🖨️ 3D Shop</a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
+
+                        <li class="nav-item" id="liLogin" runat="server">
+                            <asp:HyperLink ID="lnkLogin" runat="server" CssClass="nav-link" NavigateUrl="~/Login">Ingresar</asp:HyperLink>
+                        </li>
+
+                        <li class="nav-item" id="liLogout" runat="server" Visible="false">
+                            <asp:LinkButton ID="lnkLogout" runat="server" CssClass="nav-link"
+                                OnClick="lnkLogout_Click" CausesValidation="false">Cerrar Sesión</asp:LinkButton>
+                        </li>
+
+                        <li class="nav-item" id="liUsuarios" runat="server">
+                            <a class="nav-link" runat="server" href="~/Usuarios">Usuarios</a>
+                        </li>
+                        <li class="nav-item" id="liBitacora" runat="server">
+                            <a class="nav-link" runat="server" href="~/Bitacora">Bitácora</a>
+                        </li>
+                        <li class="nav-item" id="liComprar" runat="server">
+                            <a class="nav-link" runat="server" href="~/Comprar">Comprar</a>
+                        </li>
+                        <li class="nav-item" id="liBackup" runat="server">
+                            <a class="nav-link" runat="server" href="~/Backup">Backup</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>
+                    &copy; <%: DateTime.Now.Year %> - 3D Shop - 
+                    <asp:Label ID="lblSesion" runat="server" CssClass="text-muted"></asp:Label>
+                </p>
             </footer>
         </div>
     </form>
