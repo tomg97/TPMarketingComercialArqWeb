@@ -39,7 +39,7 @@ Al menos en 2 tablas.
 5. Loguear como admin.
 6. Cartel "error de integridad y que tabla/s y registro/s están corruptos".
 7. Hacer el restore.
-8. Salrir del sistema.
+8. Salir del sistema.
 9. Volver a loguear.
 
 ##### Cómo se impementó
@@ -80,7 +80,7 @@ Se usó un RegularExpressionValidator:
 
 ##### Bloqueo de usuario
 
-Bloquear el usuario desp del 3er intento incorrecto o hacer algo
+Bloquear el usuario desp del 3er intento incorrecto.
 
 #### Carrito de compras (si llegamos a hacerlo genial)
 
