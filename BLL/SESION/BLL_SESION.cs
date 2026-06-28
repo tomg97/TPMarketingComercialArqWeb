@@ -18,10 +18,14 @@ namespace BLL
 
         public BE_LOGIN_RESULTADO_ENUM LogIn(string nombredeusuario, string contrasenia)
         {
-            // Si ya hay alguien logueado, cerramos esa sesión primero
             if (BE_SESION.ObtenerInstancia.Logueado())
             {
                 throw new Exception("Ya hay una sesión activa en el sistema.");
+            }
+
+            if (BE_SESION.ObtenerInstancia.LoginBloqueado())
+            {
+                throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.BloqueadoTemporalmente);
             }
 
             var usuario = dalmapperusuario.Buscar(new BE_USUARIO
@@ -33,21 +37,33 @@ namespace BLL
             if (usuario.Count != 0)
             {
                 BE_USUARIO usuarioaux = usuario[0];
-                if (usuarioaux.Contrasenia == contrasenia)
-                {
-                    new DAL_PERMISO().LlenarUsuarioPermisos(usuarioaux);
-                    new DAL_MAPPER_IDIOMA().LlenarUsuarioIdioma(usuarioaux);
-                    BE_SESION.ObtenerInstancia.LogIn(usuarioaux);
-                    return BE_LOGIN_RESULTADO_ENUM.LogInCorrecto;
-                }
-                else
-                {
-                    throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.ContraseniaIncorrecta);
-                }
+
+                BE_SESION.ObtenerInstancia.ResetearIntentosLogin();
+
+                new DAL_PERMISO().LlenarUsuarioPermisos(usuarioaux);
+                new DAL_MAPPER_IDIOMA().LlenarUsuarioIdioma(usuarioaux);
+                BE_SESION.ObtenerInstancia.LogIn(usuarioaux);
+
+                return BE_LOGIN_RESULTADO_ENUM.LogInCorrecto;
             }
             else
             {
-                throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.NombreDeUsuarioIncorrecto);
+                var usuarioExistente = dalmapperusuario.TraerTodos()
+                    .FirstOrDefault(x => x.NombreDeUsuario == nombredeusuario);
+
+                if (usuarioExistente == null)
+                {
+                    throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.NombreDeUsuarioIncorrecto);
+                }
+
+                BE_SESION.ObtenerInstancia.RegistrarIntentoFallidoLogin();
+
+                if (BE_SESION.ObtenerInstancia.LoginBloqueado())
+                {
+                    throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.BloqueadoTemporalmente);
+                }
+
+                throw new BE_LOGIN_EXCEPCION(BE_LOGIN_RESULTADO_ENUM.ContraseniaIncorrecta);
             }
         }
 

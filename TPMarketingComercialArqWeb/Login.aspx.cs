@@ -36,10 +36,8 @@ namespace TPMarketingComercialArqWeb
             }
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            if (BE_SESION.ObtenerInstancia.Logueado())
-            {
+        protected void btnLogin_Click(object sender, EventArgs e) {
+            if (BE_SESION.ObtenerInstancia.Logueado()) {
                 lblError.Visible = true;
                 lblError.Text = "Ya hay una sesión activa. Debe cerrar sesión antes de ingresar.";
                 return;
@@ -48,10 +46,8 @@ namespace TPMarketingComercialArqWeb
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            try
-            {
-                if (bllsesion.LogIn(username, password) == BE_LOGIN_RESULTADO_ENUM.LogInCorrecto)
-                {
+            try {
+                if (bllsesion.LogIn(username, password) == BE_LOGIN_RESULTADO_ENUM.LogInCorrecto) {
                     var usuario = BE_SESION.ObtenerInstancia.Usuario;
                     var roles = usuario.ListaDePermisos
                                        .OfType<BE_ROL>()
@@ -68,34 +64,27 @@ namespace TPMarketingComercialArqWeb
 
                     // validar integridad de la base
                     var inconsistencias = blldigitoverificador.ObtenerInconsistencias();
-                    if (inconsistencias != null && inconsistencias.Any())
-                    {
+                    if (inconsistencias != null && inconsistencias.Any()) {
                         // Hay inconsistencias
                         var isAdmin = usuario.ListaDePermisos.OfType<BE_ROL>().Any(r => r.Nombre == "Administrador");
 
-                        if (isAdmin)
-                        {
+                        if (isAdmin) {
                             // preparar mensaje detallado (tabla: ids...)
                             var detalles = new StringBuilder();
-                            foreach (var kv in inconsistencias)
-                            {
+                            foreach (var kv in inconsistencias) {
                                 detalles.AppendLine($"{kv.Key}: {string.Join(", ", kv.Value)}");
                             }
                             // mostrar al admin y bloquear navegación excepto Backup y Logout
                             Session["DV_LockedMode"] = "admin";
                             pnlInconsistencia.Visible = true;
                             lblInconsistencia.Text = "Inconsistencia en integridad detectada. Tablas/registros:\n" + HttpUtility.HtmlEncode(detalles.ToString());
-                        }
-                        else
-                        {
+                        } else {
                             // usuario no admin -> mensaje genérico y bloquear todo salvo Logout
                             Session["DV_LockedMode"] = "user";
                             pnlInconsistencia.Visible = true;
                             lblInconsistencia.Text = "Inconsistencia detectada en los datos. Contacte al Administrador.";
                         }
-                    }
-                    else
-                    {
+                    } else {
                         // sin inconsistencias -> normal
                         Session.Remove("DV_LockedMode");
                     }
@@ -127,22 +116,20 @@ namespace TPMarketingComercialArqWeb
                         ";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "redir", delayscript, true);
                 }
-            }
-            catch (BE_LOGIN_EXCEPCION ex)
-            {
+            } catch (BE_LOGIN_EXCEPCION ex) {
                 lblError.Visible = true;
-                switch (ex.Resultado)
-                {
+                switch (ex.Resultado) {
                     case BE_LOGIN_RESULTADO_ENUM.NombreDeUsuarioIncorrecto:
                         lblError.Text = "Usuario incorrecto.";
                         break;
                     case BE_LOGIN_RESULTADO_ENUM.ContraseniaIncorrecta:
                         lblError.Text = "Contraseña incorrecta.";
                         break;
+                    case BE_LOGIN_RESULTADO_ENUM.BloqueadoTemporalmente:
+                        lblError.Text = "Demasiados intentos fallidos. Espere 15 minutos para volver a intentar.";
+                        break;
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 // Cubre "Ya hay un usuario logueado" y cualquier otro error inesperado
                 lblError.Visible = true;
                 lblError.Text = ex.Message;

@@ -35,14 +35,10 @@ namespace BE
             set { observadores = value; }
         }
         */
-        public static BE_SESION ObtenerInstancia
-        {
-            get
-            {
-                lock (bloqueo)
-                {
-                    if (instancia == null)
-                    {
+        public static BE_SESION ObtenerInstancia {
+            get {
+                lock (bloqueo) {
+                    if (instancia == null) {
                         instancia = new BE_SESION();
                     }
                 }
@@ -105,9 +101,44 @@ namespace BE
             Usuario = null;
         }
 
-        public bool Logueado()
-        {
+        public bool Logueado() {
             return Usuario != null;
+        }
+
+        private int intentosFallidosLogin = 0;
+        private DateTime? loginBloqueadoHasta = null;
+
+        public bool LoginBloqueado()
+        {
+            if (loginBloqueadoHasta.HasValue && DateTime.Now < loginBloqueadoHasta.Value)
+            {
+                return true;
+            }
+
+            if (loginBloqueadoHasta.HasValue && DateTime.Now >= loginBloqueadoHasta.Value)
+            {
+                loginBloqueadoHasta = null;
+                intentosFallidosLogin = 0;
+            }
+
+            return false;
+        }
+
+        public void RegistrarIntentoFallidoLogin()
+        {
+            intentosFallidosLogin++;
+
+            if (intentosFallidosLogin >= 3)
+            {
+                loginBloqueadoHasta = DateTime.Now.AddMinutes(15);
+                intentosFallidosLogin = 0;
+            }
+        }
+
+        public void ResetearIntentosLogin()
+        {
+            intentosFallidosLogin = 0;
+            loginBloqueadoHasta = null;
         }
     }
 }
