@@ -18,6 +18,7 @@ namespace BLL
 
         public BE_LOGIN_RESULTADO_ENUM LogIn(string nombredeusuario, string contrasenia)
         {
+            // Si ya hay alguien logueado, cerramos esa sesión primero
             if (BE_SESION.ObtenerInstancia.Logueado())
             {
                 throw new Exception("Ya hay una sesión activa en el sistema.");
