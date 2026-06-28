@@ -10,6 +10,7 @@ namespace BE.SESION
     {
         NombreDeUsuarioIncorrecto,
         ContraseniaIncorrecta,
+        BloqueadoTemporalmente,
         LogInCorrecto
     }
 }
