@@ -44,12 +44,16 @@
                                 <%# Eval("Idioma.Nombre") %> 
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:BoundField DataField="IntentosFallidos" HeaderText="Intentos fallidos" />
+                        <asp:BoundField DataField="Bloqueado" HeaderText="Bloqueado" />
                         <asp:TemplateField HeaderText="Acciones">
                             <ItemTemplate>
                                 <asp:Button ID="btnEditar" runat="server" CssClass="btn btn-sm btn-primary me-1"
                                 CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' Text="Editar" />
                                 <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-sm btn-danger"
                                 CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' Text="Eliminar" />
+                                <asp:Button ID="btnDesbloquear" runat="server" CssClass="btn btn-sm btn-warning ms-1" 
+                                CommandName="Desbloquear" CommandArgument='<%# Eval("Id") %>' Text="Desbloquear" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

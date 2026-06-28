@@ -38,6 +38,8 @@ namespace TPMarketingComercialArqWeb
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            lblError.Visible = false;
+
             if (BE_SESION.ObtenerInstancia.Logueado())
             {
                 lblError.Visible = true;

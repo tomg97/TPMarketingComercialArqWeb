@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [TpArqWeb]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Database [TpArqWeb]    Script Date: 2026-06-08 20:10:10 ******/
 CREATE DATABASE [TpArqWeb]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -80,11 +80,9 @@ ALTER DATABASE [TpArqWeb] SET QUERY_STORE = ON
 GO
 ALTER DATABASE [TpArqWeb] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
 GO
-ALTER AUTHORIZATION ON DATABASE::[TpArqWeb] TO [PC-Escritorio-L\Lauta]
-GO
 USE [TpArqWeb]
 GO
-/****** Object:  Table [dbo].[BITACORAEVENTOS]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[BITACORAEVENTOS]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -100,9 +98,7 @@ CREATE TABLE [dbo].[BITACORAEVENTOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[BITACORAEVENTOS] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[ETIQUETA]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[ETIQUETA]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,9 +112,7 @@ CREATE TABLE [dbo].[ETIQUETA](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[ETIQUETA] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[IDIOMA]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[IDIOMA]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -134,9 +128,7 @@ CREATE TABLE [dbo].[IDIOMA](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[INSUMO]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[INSUMO]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -148,15 +140,14 @@ CREATE TABLE [dbo].[INSUMO](
 	[color] [nvarchar](50) NOT NULL,
 	[marca] [nvarchar](100) NOT NULL,
 	[kilogramos] [decimal](12, 2) NOT NULL,
+	[digitohorizontal] [varchar](50) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[INSUMO] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[PERMISOS]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[PERMISOS]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,9 +162,7 @@ CREATE TABLE [dbo].[PERMISOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISOS] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[PERMISOS_PERMISOS]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[PERMISOS_PERMISOS]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -188,9 +177,7 @@ CREATE TABLE [dbo].[PERMISOS_PERMISOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISOS_PERMISOS] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[PIEZAIMPRESA]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[PIEZAIMPRESA]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -201,15 +188,14 @@ CREATE TABLE [dbo].[PIEZAIMPRESA](
 	[costodiseno] [decimal](18, 2) NOT NULL,
 	[pesoconsumidogramos] [decimal](12, 2) NOT NULL,
 	[insumoid] [int] NULL,
+	[digitohorizontal] [varchar](50) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[PIEZAIMPRESA] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[PRODUCTO]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[PRODUCTO]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -220,15 +206,14 @@ CREATE TABLE [dbo].[PRODUCTO](
 	[preciobase] [decimal](18, 2) NOT NULL,
 	[imagen] [varbinary](max) NULL,
 	[stock] [int] NOT NULL,
+	[digitohorizontal] [varchar](50) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[PRODUCTO] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[TABLA_DVV]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[TABLA_DVV]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -243,9 +228,7 @@ CREATE TABLE [dbo].[TABLA_DVV](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[TABLA_DVV] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[TRADUCCION]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[TRADUCCION]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -263,9 +246,7 @@ CREATE TABLE [dbo].[TRADUCCION](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[TRADUCCION] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[USUARIOS]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[USUARIOS]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -278,15 +259,15 @@ CREATE TABLE [dbo].[USUARIOS](
 	[contrasenia] [varchar](50) NOT NULL,
 	[correo] [varchar](50) NOT NULL,
 	[ididioma] [int] NULL,
+	[intentosfallidos] [int] NULL,
+	[bloqueado] [bit] NULL,
  CONSTRAINT [PK_USUARIO] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIOS] TO  SCHEMA OWNER 
-GO
-/****** Object:  Table [dbo].[USUARIOS_PERMISOS]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  Table [dbo].[USUARIOS_PERMISOS]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -300,8 +281,6 @@ CREATE TABLE [dbo].[USUARIOS_PERMISOS](
 	[idpermiso] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-ALTER AUTHORIZATION ON [dbo].[USUARIOS_PERMISOS] TO  SCHEMA OWNER 
 GO
 ALTER TABLE [dbo].[INSUMO]  WITH CHECK ADD  CONSTRAINT [FK_INSUMO_PRODUCTO] FOREIGN KEY([id])
 REFERENCES [dbo].[PRODUCTO] ([id])
@@ -320,7 +299,7 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PIEZAIMPRESA] CHECK CONSTRAINT [FK_PIEZAIMPRESA_PRODUCTO]
 GO
-/****** Object:  StoredProcedure [dbo].[ACCION_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[ACCION_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -332,9 +311,7 @@ BEGIN
 	SELECT * FROM PERMISOS WHERE tipo IS NOT NULL
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[ACCION_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[BITACORAEVENTOS_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[BITACORAEVENTOS_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -346,9 +323,7 @@ BEGIN
 	INSERT INTO BITACORAEVENTOS VALUES (@idusuario, @fecha, @accion)
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[BITACORAEVENTOS_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[BITACORAEVENTOS_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[BITACORAEVENTOS_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -360,9 +335,7 @@ BEGIN
 	SELECT * FROM BITACORAEVENTOS
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[BITACORAEVENTOS_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[IDIOMA_BORRAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[IDIOMA_BORRAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -376,9 +349,7 @@ BEGIN
 	DELETE FROM IDIOMA WHERE id = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA_BORRAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[IDIOMA_BUSCAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[IDIOMA_BUSCAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -391,9 +362,7 @@ BEGIN
 	SELECT * FROM IDIOMA WHERE nombre = @nombre
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA_BUSCAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[IDIOMA_EDITAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[IDIOMA_EDITAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -409,9 +378,7 @@ BEGIN
 	WHERE id = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA_EDITAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[IDIOMA_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[IDIOMA_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -424,9 +391,7 @@ BEGIN
 	--Cree un trigger para cuando se inserte un nuevo idioma se puedan crear las traducciones de forma automática
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[IDIOMA_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[IDIOMA_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -438,9 +403,7 @@ BEGIN
 	SELECT * FROM IDIOMA
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[IDIOMA_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[OBTENER_TRADUCCIONES]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[OBTENER_TRADUCCIONES]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -453,9 +416,7 @@ BEGIN
 	SELECT t.id AS 'idtraduccion', i.id AS 'ididioma', i.nombre AS 'nombreidioma', i.pordefecto, e.id AS 'idetiqueta', e.nombre AS 'nombreetiqueta', t.texto AS 'traduccion' FROM TRADUCCION t INNER JOIN IDIOMA i ON t.ididioma = i.id INNER JOIN ETIQUETA e ON t.idetiqueta = e.id WHERE i.id = @ididioma
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[OBTENER_TRADUCCIONES] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PERMISO_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PERMISO_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -468,9 +429,7 @@ BEGIN
 	--SELECT id AS LastID FROM PERMISOS WHERE id = @@Identity
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISO_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PERMISO_LISTAR_RECURSIVO]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PERMISO_LISTAR_RECURSIVO]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -492,9 +451,7 @@ BEGIN
 						inner join PERMISOS P ON rec.idpermisohijo = P.id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISO_LISTAR_RECURSIVO] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PERMISO_PERMISO_BORRAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PERMISO_PERMISO_BORRAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -507,9 +464,7 @@ BEGIN
 	DELETE FROM PERMISOS_PERMISOS WHERE idpermisopadre = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISO_PERMISO_BORRAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PERMISO_PERMISO_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PERMISO_PERMISO_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -522,9 +477,7 @@ BEGIN
 	INSERT INTO PERMISOS_PERMISOS VALUES (@idpermisopadre, @idpermisohijo) 
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[PERMISO_PERMISO_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PRODUCTO_EDITAR_STOCK]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PRODUCTO_EDITAR_STOCK]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -539,9 +492,7 @@ BEGIN
 END
 
 GO
-ALTER AUTHORIZATION ON [dbo].[PRODUCTO_EDITAR_STOCK] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[PRODUCTO_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[PRODUCTO_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -574,9 +525,7 @@ BEGIN
     LEFT JOIN PIEZAIMPRESA pi ON p.id = pi.id;
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[PRODUCTO_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[REALIZAR_BACKUP]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[REALIZAR_BACKUP]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -588,9 +537,7 @@ BEGIN
 	BACKUP DATABASE @nombrebd TO DISK = @rutabackup
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[REALIZAR_BACKUP] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[ROL_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[ROL_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -602,9 +549,7 @@ BEGIN
 	SELECT * FROM PERMISOS WHERE tipo IS NULL
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[ROL_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[TABLA_DVV_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[TABLA_DVV_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -625,9 +570,7 @@ BEGIN
 	END
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[TABLA_DVV_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_BORRAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_BORRAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -640,9 +583,7 @@ BEGIN
 	DELETE FROM USUARIOS WHERE id = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_BORRAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_BUSCAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_BUSCAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -655,9 +596,7 @@ BEGIN
 	SELECT * FROM USUARIOS WHERE nombredeusuario = @nombredeusuario AND contrasenia = @contrasenia
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_BUSCAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_BUSCARID]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_BUSCARID]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -669,9 +608,7 @@ BEGIN
 	SELECT * FROM USUARIOS WHERE id = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_BUSCARID] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_EDITAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_EDITAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -691,9 +628,7 @@ BEGIN
 	WHERE id = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_EDITAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -705,9 +640,7 @@ BEGIN
 	INSERT INTO USUARIOS VALUES (@nombredeusuario, @nombre, @apellido, @contrasenia, @correo, @ididioma)
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_INSERTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -719,9 +652,7 @@ BEGIN
 	SELECT * FROM USUARIOS
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIO_PERMISO_LISTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIO_PERMISO_LISTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -734,9 +665,7 @@ BEGIN
 	SELECT P.* FROM USUARIOS_PERMISOS UP INNER JOIN PERMISOS P ON UP.idpermiso = P.id WHERE idusuario = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIO_PERMISO_LISTAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIOS_PERMISOS_BORRAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIOS_PERMISOS_BORRAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -748,9 +677,7 @@ BEGIN
 	DELETE FROM USUARIOS_PERMISOS WHERE idusuario = @id
 END
 GO
-ALTER AUTHORIZATION ON [dbo].[USUARIOS_PERMISOS_BORRAR] TO  SCHEMA OWNER 
-GO
-/****** Object:  StoredProcedure [dbo].[USUARIOS_PERMISOS_INSERTAR]    Script Date: 2026-06-06 10:40:51 ******/
+/****** Object:  StoredProcedure [dbo].[USUARIOS_PERMISOS_INSERTAR]    Script Date: 2026-06-08 20:10:10 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -762,8 +689,6 @@ AS
 BEGIN
 	INSERT INTO USUARIOS_PERMISOS VALUES (@idusuario, @idpermiso)
 END
-GO
-ALTER AUTHORIZATION ON [dbo].[USUARIOS_PERMISOS_INSERTAR] TO  SCHEMA OWNER 
 GO
 USE [master]
 GO

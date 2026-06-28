@@ -14,6 +14,8 @@ namespace BE
         {
             listaDePermisos = new List<BE_PERMISO>();
             idioma = new BE_IDIOMA();
+            IntentosFallidos = 0;
+            Bloqueado = false;
         }
 
         private List<BE_PERMISO> listaDePermisos;
@@ -70,6 +72,20 @@ namespace BE
         {
             get { return idioma; }
             set { idioma = value; }
+        }
+
+        private int intentosFallidos;
+        public int IntentosFallidos
+        {
+            get { return intentosFallidos; }
+            set { intentosFallidos = value; }
+        }
+
+        private bool bloqueado;
+        public bool Bloqueado
+        {
+            get { return bloqueado; }
+            set { bloqueado = value; }
         }
 
         public override string ToString()

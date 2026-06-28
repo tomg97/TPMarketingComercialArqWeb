@@ -117,6 +117,18 @@ namespace DAL
             return usuarios[0];
         }
 
+        public BE_USUARIO BuscarPorNombre(string nombreDeUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            var p = acceso.CrearParametro("@nombredeusuario", nombreDeUsuario);
+            parametros.Add(p);
+
+            // Usamos SQL texto para evitar dependencia de SP que tal vez no exista
+            var dt = acceso.Leer("SELECT * FROM USUARIOS WHERE nombredeusuario = @nombredeusuario", parametros, false);
+            if (dt.Rows.Count == 0) return null;
+            return Convertir(dt.Rows[0]);
+        }
+
         public override List<BE_USUARIO> TraerTodos()
         {
             List<BE_USUARIO> usuarios = new List<BE_USUARIO>();
@@ -139,7 +151,17 @@ namespace DAL
             usuario.Apellido = registro["apellido"].ToString();
             usuario.Correo = registro["correo"].ToString();
             usuario.Idioma.Id = int.Parse(registro["ididioma"].ToString());
-            
+            if (registro.Table.Columns.Contains("intentosfallidos"))
+            {
+                int.TryParse(registro["intentosfallidos"].ToString(), out int intentos);
+                usuario.IntentosFallidos = intentos;
+            }
+            if (registro.Table.Columns.Contains("bloqueado"))
+            {
+                bool.TryParse(registro["bloqueado"].ToString(), out bool bloqueado);
+                usuario.Bloqueado = bloqueado;
+            }
+
             new DAL_MAPPER_IDIOMA().LlenarUsuarioIdioma(usuario);
             
             return usuario;
@@ -172,6 +194,42 @@ namespace DAL
             {
                 throw;
             }
+        }
+
+        public void ResetearIntentos(int idUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@id", idUsuario));
+            acceso.Escribir("UPDATE USUARIOS SET intentosfallidos = 0 WHERE id = @id", parametros, false);
+        }
+
+        public void RegistrarFalloLogin(int idUsuario, int limite = 3)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@id", idUsuario));
+            acceso.Escribir("UPDATE USUARIOS SET intentosfallidos = ISNULL(intentosfallidos,0) + 1 WHERE id = @id", parametros, false);
+
+            // Leer valor actual
+            var usuario = BuscarConId(idUsuario);
+            if (usuario != null && usuario.IntentosFallidos >= limite)
+            {
+                // Bloquear
+                BloquearUsuario(idUsuario);
+            }
+        }
+
+        public void BloquearUsuario(int idUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@id", idUsuario));
+            acceso.Escribir("UPDATE USUARIOS SET bloqueado = 1 WHERE id = @id", parametros, false);
+        }
+
+        public void DesbloquearUsuario(int idUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@id", idUsuario));
+            acceso.Escribir("UPDATE USUARIOS SET bloqueado = 0, intentosfallidos = 0 WHERE id = @id", parametros, false);
         }
     }
 }

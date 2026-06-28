@@ -30,9 +30,17 @@ Para la primer entrega solamente debemos mostrar los login - logout
 
 #### Dígito Verificador
 
-Al menos en 2 tablas
+Al menos en 2 tablas.
 
-- Loguear como Admin -> hacer un backup -> salir del sistema -> romper 2 tablas (por lo menos en 2 tablas tiene que haber dígito verificador) -> loguear como admin -> cartel "error de integridad y que tabla/s y registro/s están corruptos".
+1. Loguear como Admin.
+2. Hacer un backup.
+3. Salir del sistema.
+4. Romper 2 tablas (por lo menos en 2 tablas tiene que haber dígito verificador).
+5. Loguear como admin.
+6. Cartel "error de integridad y que tabla/s y registro/s están corruptos".
+7. Hacer el restore.
+8. Salir del sistema.
+9. Volver a loguear.
 
 ##### Cómo se impementó
 
@@ -72,7 +80,7 @@ Se usó un RegularExpressionValidator:
 
 ##### Bloqueo de usuario
 
-Bloquear el usuario desp del 3er intento incorrecto o hacer algo
+Bloquear el usuario desp del 3er intento incorrecto.
 
 #### Carrito de compras (si llegamos a hacerlo genial)
 
@@ -114,9 +122,6 @@ Entidades (BE)
 
 Acá documentamos los Casos de Uso de login + bitácora
 
-> [!WARNING]
-> El profe Necesita que en el TP haya un RegularExpressionValidator (nos dio una hoja con la explicación).
-
 ## Usuarios del sistema
 
 Usuario: Lauta
@@ -124,15 +129,15 @@ Contraseña: PasswSafe!42
 Rol: Administrador
 
 Usuario: MaxV
-Contraseña: 1234
+Contraseña: PasswSafe!42
 Rol: SinPermisos
 
 Usuario: Nano
-Contraseña: 1234
+Contraseña: PasswSafe!42
 Rol: Cliente
 
 Usuario: Checo
-Contraseña: 1234
+Contraseña: PasswSafe!42
 Rol: Seguridad
 
 ## Roles y permisos

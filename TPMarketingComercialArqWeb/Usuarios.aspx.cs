@@ -21,6 +21,7 @@ namespace TPMarketingComercialArqWeb
         BLL_USUARIO bllusuario = new BLL_USUARIO();
         BLL_IDIOMA bllidioma = new BLL_IDIOMA();
         BLL_BITACORA_EVENTOS bllbitacoraeventos = new BLL_BITACORA_EVENTOS();
+        BLL_SESION bllsesion = new BLL_SESION();
         BE_USUARIO usuarioaux;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -120,7 +121,8 @@ namespace TPMarketingComercialArqWeb
                     Session["Operacion"] = false;
                 }
             }
-            else if (e.CommandName == "Eliminar")
+
+            if (e.CommandName == "Eliminar")
             {
                 if (int.TryParse(e.CommandArgument?.ToString(), out int rowIndex))
                 {
@@ -130,6 +132,15 @@ namespace TPMarketingComercialArqWeb
                     bllusuario.BorrarUsuario(u);
                     bllbitacoraeventos.GuardarBitacoraEvento(
                         new BE_BITACORA_EVENTOS(BE_SESION.ObtenerInstancia.Usuario, DateTime.Now, "Borró un usuario"));
+                    LlenarGrilla();
+                }
+            }
+
+            if (e.CommandName == "Desbloquear")
+            {
+                if (int.TryParse(e.CommandArgument?.ToString(), out int id))
+                {
+                    bllsesion.DesbloquearUsuario(id);
                     LlenarGrilla();
                 }
             }
